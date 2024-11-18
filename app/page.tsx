@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 import homeImage from './assets/images/png/homeImage.png';
@@ -7,8 +8,64 @@ import education from './assets/images/svg/education.svg';
 import flag from './assets/images/svg/flag.svg';
 import humans from './assets/images/svg/humans.svg';
 import mask from './assets/images/svg/mask.svg';
+import Swiper from './components/swiper/swiper';
+import { useState } from 'react';
+
+type FAQ = {
+  question: string;
+  answer: string;
+};
+const faqs: FAQ[] = [
+  {
+    question: 'What are the school hours at Little Learners Academy?',
+    answer:
+      'Our school hours are from 8:00 AM to 3:00 PM, Monday to Friday. We also offer extended care options for parents who need early drop-off or late pick-up.',
+  },
+  {
+    question: 'How do you handle food allergies and dietary restrictions?',
+    answer:
+      'We take food allergies seriously and work closely with parents to accommodate dietary restrictions. Our staff is trained to handle these concerns.',
+  },
+  {
+    question:
+      'What is the teacher-to-student ratio at Little Learners Academy?',
+    answer:
+      'Our teacher-to-student ratio is 1:10 for toddlers and 1:15 for preschoolers, ensuring personalized attention and care for each child.',
+  },
+  {
+    question: 'Is there a uniform policy for students?',
+    answer:
+      'Yes, we have a uniform policy to promote a sense of community and equality among students.',
+  },
+  {
+    question: 'What extracurricular activities are available for students?',
+    answer:
+      'We offer activities such as art, music, dance, and sports to help develop students’ skills and interests.',
+  },
+  {
+    question: 'How do you handle discipline and behavior management?',
+    answer:
+      'We use positive reinforcement and work closely with parents to address behavioral challenges in a supportive manner.',
+  },
+  {
+    question: 'How do I apply for admission to Little Learners Academy?',
+    answer:
+      'You can apply by visiting our website and filling out the admission form or contacting our administration office directly.',
+  },
+  {
+    question: 'What extracurricular activities are available for students?',
+    answer:
+      'We offer activities such as art, music, dance, and sports to help develop students’ skills and interests.',
+  },
+];
 
 export default function Home() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const toggleFAQ = (index: number) => {
+    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
   return (
     <section className='px-[160px] my-20 max-w-[1590px] w-full mx-auto'>
       <div className='flex items-center justify-between'>
@@ -145,11 +202,149 @@ export default function Home() {
         </div>
       </div>
 
-      <div></div>
+      <section className='flex flex-col items-center my-16'>
+        <button className='mb-6 px-6 py-2 font-medium bg-white  text-black w-fit transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] rounded-[8px]'>
+          Their Happy Words
+        </button>
+        <h2 className='text-3xl font-bold text-center mb-8'>
+          Our Testimonials{' '}
+        </h2>
+        <p className='text-center mb-16'>
+          Our testimonials are heartfelt reflections of the nurturing
+          environment we provide, where children flourish both academically and
+          emotionally.
+        </p>
+        <Swiper />
+      </section>
 
-      <div></div>
+      <div className='flex flex-col items-center'>
+        <button className='px-6 py-2 font-medium bg-white  text-black w-fit transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] rounded-[8px]'>
+          Solutions For The Doubts
+        </button>
+        <section className='px-4 py-16 max-w-4xl mx-auto'>
+          <h2 className='text-3xl font-bold text-center mb-8'>
+            Frequently Asked Questions
+          </h2>
+          <p className='text-center mb-16'>
+            Find all the essential information you need in our FAQ section,
+            designed to address the most frequently asked questions and help you
+            make informed decisions for your child's education.
+          </p>
+          <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className={`border rounded-lg p-4 flex flex-col justify-between ${
+                  activeIndex === index ? 'bg-gray-100 shadow-md' : 'bg-white'
+                }`}
+                style={{ minHeight: '150px' }}
+              >
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className='w-full flex justify-between items-center text-left text-gray-800 font-medium focus:outline-none'
+                >
+                  <span className='text-lg'>{faq.question}</span>
+                  <span className='text-2xl'>
+                    {activeIndex === index ? '−' : '+'}
+                  </span>
+                </button>
+                {activeIndex === index && (
+                  <div className='mt-2 text-gray-600'>
+                    <p>{faq.answer}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
 
-      <div></div>
+      <div>
+        <section className='flex flex-col items-center my-16'>
+          <button className='mb-6 px-6 py-2 font-medium bg-white  text-black w-fit transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] rounded-[8px]'>
+            Explore More{' '}
+          </button>
+          <h2 className='text-3xl font-bold text-center mb-8'>
+            Navigate through our Pages
+          </h2>
+          <p className='text-center mb-16'>
+            Your gateway to discovering a wealth of valuable information about
+            our kindergarten school, Feel free to explore and learn more about
+            the enriching experiences that await your child at our kindergarten
+            school
+          </p>
+          <div className='px-4 py-16 max-w-6xl mx-auto'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
+              <div className='bg-white border rounded-lg shadow-md p-6 text-center'>
+                <h3 className='text-2xl font-bold mb-4'>About Us</h3>
+                <div className='flex items-center justify-center mb-4'>
+                  <div className='h-2 w-2 bg-gray-300 rounded-full'></div>
+                  <div className='flex-grow border-t-2 border-dashed border-orange-300 mx-2'></div>
+                  <div className='h-2 w-2 bg-gray-300 rounded-full'></div>
+                </div>
+                <p className='text-gray-600 mb-6'>
+                  Discover our Mission, Values, and our unwavering commitment to
+                  providing the best learning experience for your child. Learn
+                  about our passionate educators and our engaging approach to
+                  early education.
+                </p>
+                <button className='bg-orange-100 text-black w-full px-6 py-3 rounded-lg shadow-md hover:bg-orange-200'>
+                  Learn More →
+                </button>
+              </div>
+              <div className='bg-white border rounded-lg shadow-md p-6 text-center'>
+                <h3 className='text-2xl font-bold mb-4'>Academics</h3>
+                <div className='flex items-center justify-center mb-4'>
+                  <div className='h-2 w-2 bg-gray-300 rounded-full'></div>
+                  <div className='flex-grow border-t-2 border-dashed border-orange-300 mx-2'></div>
+                  <div className='h-2 w-2 bg-gray-300 rounded-full'></div>
+                </div>
+                <p className='text-gray-600 mb-6'>
+                  Delve into our comprehensive academic programs designed to
+                  stimulate young minds, foster creativity, and encourage a love
+                  for learning.
+                </p>
+                <button className='bg-orange-100 text-black w-full px-6 py-3 rounded-lg shadow-md hover:bg-orange-200'>
+                  Learn More →
+                </button>
+              </div>
+              <div className='bg-white border rounded-lg shadow-md p-6 text-center'>
+                <h3 className='text-2xl font-bold mb-4'>Student Life</h3>
+                <div className='flex items-center justify-center mb-4'>
+                  <div className='h-2 w-2 bg-gray-300 rounded-full'></div>
+                  <div className='flex-grow border-t-2 border-dashed border-orange-300 mx-2'></div>
+                  <div className='h-2 w-2 bg-gray-300 rounded-full'></div>
+                </div>
+                <p className='text-gray-600 mb-6'>
+                  Peek into the vibrant and enriching world of Student Life at
+                  Little Learners Academy. Discover the array of extracurricular
+                  activities and social events that make our school experience
+                  memorable.
+                </p>
+                <button className='bg-orange-100 text-black w-full px-6 py-3 rounded-lg shadow-md hover:bg-orange-200'>
+                  Learn More →
+                </button>
+              </div>
+              <div className='bg-white border rounded-lg shadow-md p-6 text-center'>
+                <h3 className='text-2xl font-bold mb-4'>Admissions</h3>
+                <div className='flex items-center justify-center mb-4'>
+                  <div className='h-2 w-2 bg-gray-300 rounded-full'></div>
+                  <div className='flex-grow border-t-2 border-dashed border-orange-300 mx-2'></div>
+                  <div className='h-2 w-2 bg-gray-300 rounded-full'></div>
+                </div>
+                <p className='text-gray-600 mb-6'>
+                  Learn about our Enrollment Process and how to secure your
+                  child’s place at Little Learners Academy. Find information
+                  about admission requirements and application deadlines.
+                </p>
+                <button className='bg-orange-100 text-black w-full px-6 py-3 rounded-lg shadow-md hover:bg-orange-200'>
+                  Learn More →
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </section>
   );
 }
