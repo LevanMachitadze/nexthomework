@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-import z from '../../assets/images/svg/Z.svg';
+import z from '../../assets/images/svg/z.svg';
 import pencil from '../../assets/images/svg/pencil.svg';
 import melody from '../../assets/images/svg/melody.svg';
 import puzzle from '../../assets/images/svg/puzzle.svg';
